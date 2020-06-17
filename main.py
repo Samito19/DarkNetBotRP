@@ -32,18 +32,6 @@ async def on_message(message):
             await channel.send('Commande Incorrecte !')
             await client.http.delete_message(message.channel.id, message.id)
 
-    # Supprimer les messages dans un channel
-    if message.guild.get_member(message.author.id).display_name in message.channel.name:
-        if message.content.lower().startswith("/"):
-            odd = lambda data: data['name'] == message.content[1:].split(' ')[0]
-            next_function = next(filter(odd, commandes), None)
-            if next_function != None:
-                await next_function['do'](client, message)
-            else:
-                channel = await message.guild.get_member(message.author.id).create_dm()
-                await channel.send('Commande Incorrecte !')
-                await client.http.delete_message(message.channel.id, message.id)
-
 @client.event
 async def on_guild_channel_create(channel):
     if channel.category.name == '📱Communication':
