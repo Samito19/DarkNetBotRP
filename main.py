@@ -1,6 +1,7 @@
 import discord
 from commands import commandes
 import hashlib
+import sys
 
 client = discord.Client(command_prefix="/")
 
