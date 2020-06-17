@@ -36,7 +36,7 @@ async def suppmessages(client, message, content, params):
         await channel.send('Commande Incorrecte !')
 
 async def changerid(client, message, content, params):
-    if message.channel.id == 718936905047081000
+    if message.channel.id == 718936905047081000:
         try:
              hash = hashlib.sha1(message.guild.get_member(message.author.id).display_name.encode("UTF-8")).hexdigest()
              await message.guild.get_member(message.author.id).edit(nick=hash[:15])
