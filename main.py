@@ -27,10 +27,7 @@ async def on_message(message):
                 channel = await message.guild.get_member(message.author.id).create_dm()
                 await channel.send('Commande Incorrecte !')
                 await client.http.delete_message(message.channel.id, message.id)
-        else:
-            channel = await message.guild.get_member(message.author.id).create_dm()
-            await channel.send('Commande Incorrecte !')
-            await client.http.delete_message(message.channel.id, message.id)
+
 
 @client.event
 async def on_guild_channel_create(channel):
