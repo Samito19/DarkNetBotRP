@@ -2,9 +2,7 @@ import discord
 from commands import commandes
 import hashlib
 
-
 client = discord.Client(command_prefix="/")
-
 
 @client.event
 async def on_ready():
@@ -15,7 +13,6 @@ async def on_member_join(member):
     hash = hashlib.sha1(member.name.encode("UTF-8")).hexdigest()
     await member.edit(nick=hash[:15])
     await member.add_roles(member.guild.get_role(718942056709357569))
-
 
 @client.event
 async def on_message(message):
@@ -46,9 +43,6 @@ async def on_message(message):
                 await channel.send('Commande Incorrecte !')
                 await client.http.delete_message(message.channel.id, message.id)
 
-
-
-
 @client.event
 async def on_guild_channel_create(channel):
     if channel.category.name == '📱Communication':
@@ -59,8 +53,11 @@ async def on_guild_channel_create(channel):
         receiver = channel.guild.get_member_named(channel.name[16:]).mention
         await channel.send('Cette conversation est entièrement **cryptée**, les messages qui y seront échangés ne seront accéssibles  que par les utilisateurs {sender} et {receiver} . Pensez à vous transmettre un code Reddit pour communiquer avec un téléphone. '.format(sender=sender, receiver=receiver))
 
-
-
-
+def main(environ, start_response):
+    start_response('200 OK', [('Content-Type', 'text/plain')])
+    message = 'It works!\n'
+    version = 'Python v' + sys.version.split()[0] + '\n'
+    response = '\n'.join([message, version])
+    return [response.encode()]
 
 client.run('NzE4ODYyOTI0NDA3MzczOTA2.Xtvg8A.Ms9vwjatkOKpJdx3c9yZyDvkUZo')
