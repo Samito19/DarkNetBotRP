@@ -42,7 +42,6 @@ async def changerid(client, message, content, params):
         try:
             hash = hashlib.sha1(message.guild.get_member(message.author.id).display_name.encode("UTF-8")).hexdigest()
             await message.guild.get_member(message.author.id).edit(nick=hash[:15])
-            print('YESSS')
             await client.http.delete_message(message.channel.id, message.id)
         except:
             await client.http.delete_message(message.channel.id, message.id)
