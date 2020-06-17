@@ -17,7 +17,7 @@ async def on_member_join(member):
 @client.event
 async def on_message(message):
     # Code pour la commande /contacter
-    if message.channel.id == 718936905047081000 and message.author.id != client.user.id and (message.author.bot == False):
+    if message.author.id != client.user.id and (message.author.bot == False):
         if message.content.lower().startswith('/'):
             odd = lambda data: data['name'] == message.content[1:].split(' ')[0]
             next_function = next(filter(odd, commandes), None)
