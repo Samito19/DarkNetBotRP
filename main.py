@@ -28,7 +28,6 @@ async def on_message(message):
                 await channel.send('Commande Incorrecte !')
                 await client.http.delete_message(message.channel.id, message.id)
 
-
 @client.event
 async def on_guild_channel_create(channel):
     if channel.category.name == '📱Communication':
