@@ -17,9 +17,8 @@ async def contacter(client, message, content, params):
         channel = await message.guild.get_member(message.author.id).create_dm()
         await channel.send('Commande Incorrecte !')
 
-
-async def suppmessages(client, message):
-    if message.content == '/suppmessages':
+async def suppmessages(client, message, content, params):
+    if message.channel.category.name == '📱Communication':
         try:
             msgs = await message.channel.history(limit=200).flatten()
             await message.channel.delete_messages(msgs)
@@ -36,34 +35,26 @@ async def suppmessages(client, message):
         channel = await message.guild.get_member(message.author.id).create_dm()
         await channel.send('Commande Incorrecte !')
 
-
 async def changerid(client, message, content, params):
-    if message.content == '/changerid':
-        try:
-            hash = hashlib.sha1(message.guild.get_member(message.author.id).display_name.encode("UTF-8")).hexdigest()
-            await message.guild.get_member(message.author.id).edit(nick=hash[:15])
-            await client.http.delete_message(message.channel.id, message.id)
-        except:
-            await client.http.delete_message(message.channel.id, message.id)
-
-
-    else:
+   try:
+        hash = hashlib.sha1(message.guild.get_member(message.author.id).display_name.encode("UTF-8")).hexdigest()
+        await message.guild.get_member(message.author.id).edit(nick=hash[:15])
         await client.http.delete_message(message.channel.id, message.id)
-        channel = await message.guild.get_member(message.author.id).create_dm()
-        await channel.send('Commande Incorrecte !')
+   except:
+        await client.http.delete_message(message.channel.id, message.id)
 
 
-
-
-
-
-commandes = [{
-    "name":"contacter",
-    "do":contacter, },
+commandes = [
     {
-    "name": "suppmessages",
-    "do": suppmessages, },
+        "name":"contacter",
+        "do":contacter
+    },
     {
-    "name": "changerid",
-    "do": changerid, }
+        "name": "suppmessages",
+        "do": suppmessages
+    },
+    {
+        "name": "changerid",
+        "do": changerid
+    }
 ]
