@@ -57,8 +57,6 @@ async def on_guild_channel_create(channel):
 def main(environ, start_response):
     start_response('200 OK', [('Content-Type', 'text/plain')])
     message = 'It works!\n'
-    version = 'Python v' + sys.version.split()[0] + '\n'
-    response = '\n'.join([message, version])
-    return [response.encode()]
+    return [message.encode()]
 
 client.run('NzE4ODYyOTI0NDA3MzczOTA2.Xtvg8A.Ms9vwjatkOKpJdx3c9yZyDvkUZo')
