@@ -32,6 +32,7 @@ async def on_message(message):
             await channel.send('Commande Incorrecte !')
             await client.http.delete_message(message.channel.id, message.id)
 
+    # Supprimer les messages dans un channel
     if message.guild.get_member(message.author.id).display_name in message.channel.name:
         if message.content.lower().startswith("/"):
             odd = lambda data: data['name'] == message.content[1:].split(' ')[0]
