@@ -22,21 +22,21 @@ async def suppmessages(client, message, content, params):
         try:
             msgs = await message.channel.history(limit=200).flatten()
             await message.channel.delete_messages(msgs)
-            message = await message.channel.send(':warning: Tout les messages ont été supprimés ! Ce message sera également automatiquement supprimé dans les prochaines secondes. :warning:')
+            await message.channel.send(':warning: Tout les messages ont été supprimés ! Ce message sera également automatiquement supprimé dans les prochaines secondes. :warning:')
             time.sleep(7)
             await client.http.delete_message(message.channel.id, message.id)
 
         except:
             await client.http.delete_message(message.channel.id, message.id)
             channel = await message.guild.get_member(message.author.id).create_dm()
-            await channel.send('Commande Incorrecte !')
+            await channel.send('Une erreur a été detectée, veuillez retaper la commande !')
     else:
         await client.http.delete_message(message.channel.id, message.id)
         channel = await message.guild.get_member(message.author.id).create_dm()
-        await channel.send('Commande Incorrecte !')
+        await channel.send('Utilisez cette commande dans un channel !')
 
 async def changerid(client, message, content, params):
-    if message.channel.id == 718936905047081000:
+    if message.channel.name == 'console':
         try:
              hash = hashlib.sha1(message.guild.get_member(message.author.id).display_name.encode("UTF-8")).hexdigest()
              await message.guild.get_member(message.author.id).edit(nick=hash[:15])
@@ -46,7 +46,25 @@ async def changerid(client, message, content, params):
     else:
         await client.http.delete_message(message.channel.id, message.id)
         channel = await message.guild.get_member(message.author.id).create_dm()
-        await channel.send('Commande Incorrecte !')
+        await channel.send('Utilisez cette commande dans le channel console !')
+
+async def suppchannel(client, message, content, params):
+    if message.channel.category.name == '📱Communication':
+        try:
+            msgs = await message.channel.history(limit=200).flatten()
+            await message.channel.delete_messages(msgs)
+            await message.channel.send(':warning: Ce channel en est en cours de suppression, ce dernier ne sera plus visible dans quelques secondes :warning:')
+            time.sleep(5)
+            await message.channel.delete()
+        except:
+            await client.http.delete_message(message.channel.id, message.id)
+            channel = await message.guild.get_member(message.author.id).create_dm()
+            await channel.send('Une erreur a été detectée, veuillez retaper la commande !')
+    else:
+        await client.http.delete_message(message.channel.id, message.id)
+        channel = await message.guild.get_member(message.author.id).create_dm()
+        await channel.send('Veuillez utiliser la commande dans un channel !')
+
 
 
 commandes = [
@@ -61,5 +79,9 @@ commandes = [
     {
         "name": "changerid",
         "do": changerid
+    },
+    {
+        "name": "suppchannel",
+        "do": suppchannel
     }
 ]
